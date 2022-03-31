@@ -13,7 +13,7 @@ class BookDatabase {
     void addBook(Book book);
     void updateBook(Book book);
     void deleteBook(std::string ISBN);
-    void searchBook(Book book);
+    Book* searchBook(std::string ISBN, bool listing);
     void displayBooks();
     void updateBookDatabase();
 };

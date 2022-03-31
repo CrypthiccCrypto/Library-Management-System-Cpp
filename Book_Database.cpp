@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <ctime>
 #include <sstream>
 #include "Book.h"
 #include "Book_Database.h"
@@ -22,7 +23,7 @@ BookDatabase::BookDatabase(std::string fname) {
 			while(getline(str, word, ','))
 				row.push_back(word);
 
-			Book tmp(row[0], row[1], row[2], row[3]);
+			Book tmp(row[0], row[1], row[2], row[3], stoi(row[4]));
             BookDatabase::books.push_back(tmp);
 		}
 	}
@@ -57,25 +58,20 @@ void BookDatabase::deleteBook(std::string ISBN) {
     std::cout << "Book does not exist\n";
 }
 
-void BookDatabase::searchBook(Book book) {
-    for(Book b : BookDatabase::books) {
-        if(b.getISBN() == book.getISBN()) {
-            std::cout << "Book found\n";
-            return;
+Book* BookDatabase::searchBook(std::string ISBN, bool listing) {
+    for(Book &b : BookDatabase::books) {
+        if(b.getISBN() == ISBN) {
+            if(listing) std::cout << "Book found\n";
+            return &b;
         }
     }
 
-    std::cout << "Book not found\n";
+    if(listing) std::cout << "Book not found\n";
+    return nullptr;
 }
 
 void BookDatabase::displayBooks() {
-    for(Book b : BookDatabase::books) {
-        std::cout << "ISBN: " << b.getISBN() << "\n";
-        std::cout << "Title: " << b.getTitle() << "\n";
-        std::cout << "Author: " << b.getAuthor() << "\n";
-        std::cout << "Publisher: " << b.getPublication() << "\n";
-        std::cout << "---------------------------------\n";
-    }
+    for(Book b : BookDatabase::books) { b.displayBook(); }
 }
 
 void BookDatabase::updateBookDatabase() {
@@ -83,7 +79,7 @@ void BookDatabase::updateBookDatabase() {
     outfile.open("tmp.dat", std::ios::trunc);
 
     for(Book &b : BookDatabase::books) {
-        outfile << b.getTitle() << "," << b.getAuthor() << "," << b.getISBN() << "," << b.getPublication() << '\n';
+        outfile << b.getTitle() << "," << b.getAuthor() << "," << b.getISBN() << "," << b.getPublication() << "," << b.getIssueDate() << '\n';
     }
 
     outfile.close();

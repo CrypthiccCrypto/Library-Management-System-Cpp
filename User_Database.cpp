@@ -26,7 +26,10 @@ UserDatabase::UserDatabase(std::string fname) {
 				row.push_back(word);
 
             curr_id = std::max(curr_id, std::stoi(row[0]));
-            User tmp(std::stoi(row[0]), row[1], row[2], row[3][0]);
+
+            std::vector<std::string> tmp_isbns;
+            for(int i = 4; i < row.size(); i++) { tmp_isbns.push_back(row[i]); }
+            User tmp(std::stoi(row[0]), row[1], row[2], row[3][0], tmp_isbns);
             UserDatabase::users.push_back(tmp);
 		}
 	}
@@ -98,7 +101,11 @@ void UserDatabase::updateDatabase() {
     outfile.open("tmp.dat", std::ios::trunc);
 
     for(User &u : UserDatabase::users) { 
-        outfile << u.getID() << "," << u.getName() << "," << u.getPassword() << "," << u.getPermission() << '\n';
+        outfile << u.getID() << "," << u.getName() << "," << u.getPassword() << "," << u.getPermission();
+        for(std::string isbn : u.getISBNS()) {
+            outfile << "," << isbn;
+        }
+        outfile << '\n';
     }
 
     outfile.close();

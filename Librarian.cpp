@@ -23,9 +23,10 @@ enum LIB_CODES{
     LOGOUT
 };
 
-Librarian::Librarian(int ID, std::string name, std::string password, char permission, UserDatabase *udb, BookDatabase *bdb) : User(ID, name, password, permission){
+Librarian::Librarian(int ID, std::string name, std::string password, char permission, std::vector<std::string> isbns, UserDatabase *udb, BookDatabase *bdb) : User(ID, name, password, permission, isbns){
     Librarian::udb = udb;
     Librarian::bdb = bdb;
+    max_books = 0;
     USER_MENU = 
     "What would you like to do?\n1. Issue a book\n2. Add a new book\n3. Delete a book\n4. List all books\n5. List issuable books\n6. Add a new user\n7. Update a user\n8. Delete user\n9. Display all users\n10. Logout\n";
 }
@@ -50,7 +51,7 @@ void Librarian::doActivity() {
             getline(std::cin, ISBN);
             getline(std::cin, publication);
 
-            Book tmp(title, author, ISBN, publication);
+            Book tmp(title, author, ISBN, publication, -1);
             bdb -> addBook(tmp);
         }
         else if(ch == LIST_ALL_BOOK) {
@@ -75,7 +76,8 @@ void Librarian::doActivity() {
             getline(std::cin, password);
             permission = getchar();
 
-            User tmp(udb -> curr_id, name, password, permission);
+            std::vector<std::string> empt;
+            User tmp(udb -> curr_id, name, password, permission, empt);
             udb -> addUser(tmp);
         }
         else if(ch == DELETE_USER) {

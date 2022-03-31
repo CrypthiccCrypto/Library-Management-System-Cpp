@@ -4,11 +4,13 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <ctime>
 #include "Book.h"
 #include "Book_Database.h"
 #include "User.h"
 #include "User_Database.h"
 #include "Librarian.h"
+#include "Student.h"
 
 using namespace std;
 
@@ -16,6 +18,7 @@ const short IN_BACK = 8;
 const short IN_RET = 13;
 const string USER_DATABASE = "User_db.dat";
 const string BOOK_DATABASE = "Book_db.dat";
+const std::vector<std::string> empt;
 
 UserDatabase udb(USER_DATABASE);
 BookDatabase bdb(BOOK_DATABASE);
@@ -66,17 +69,16 @@ int main() {
 
     cout << "Welcome " << cur -> getName() << ".\n";
     char p = cur -> getPermission();
-    free(cur);
     
     if(p == 'A') {
-        Librarian lb(cur -> getID(), cur -> getName(), cur -> getPassword(), cur -> getPermission(), &udb, &bdb);
-        cur = &lb;
-        cur -> doActivity();
-    }
-    else if(p == 'P') {
-        cout << "Sex" << endl;
+        Librarian lb(cur -> getID(), cur -> getName(), cur -> getPassword(), cur -> getPermission(), empt, &udb, &bdb);
+        lb.doActivity();
     }
     else if(p == 'S') {
+        Student s(cur -> getID(), cur -> getName(), cur -> getPassword(), cur -> getPermission(), cur -> getISBNS(), &bdb);
+        s.displayIssuedBooks();
+    }
+    else if(p == 'P') {
         cout << "mega" << endl;
     }
     else {
