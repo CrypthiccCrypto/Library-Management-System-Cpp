@@ -8,10 +8,12 @@
 #include "Book_Database.h"
 #include "User.h"
 #include "User_Database.h"
+#include "Librarian.h"
 
 using namespace std;
 const short IN_BACK = 8;
 const short IN_RET = 13;
+const string USER_DATABASE = "User_db.dat";
 UserDatabase udb("User_db.dat");
 User* cur;
 
@@ -52,14 +54,30 @@ bool login() {
         cout << "The username or password is incorrect. Please try again.\n";
         return false;
     }
-    else {
-        cout << "Hasta la vista mamma mia";
-        return true;
-    }
+    else { return true; }
 }
 
 int main() {
     while(!login());
+
+    cout << "Welcome " << cur -> getName() << ".\n";
+    char p = cur -> getPermission();
+    free(cur);
+    
+    if(p == 'A') {
+        Librarian lb(cur -> getID(), cur -> getName(), cur -> getPassword(), cur -> getPermission(), &udb);
+        cur = &lb;
+        cur -> doActivity();
+    }
+    else if(p == 'P') {
+        cout << "Sex" << endl;
+    }
+    else if(p == 'S') {
+        cout << "mega" << endl;
+    }
+    else {
+        cout << "Underfined permission" << endl;
+    }
 
     return 0;
 }

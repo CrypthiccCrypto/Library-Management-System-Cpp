@@ -22,3 +22,5 @@ void User::setName(std::string name) { User::name = name; }
 void User::setID(int ID) { User::ID = ID; }
 void User::setPassword(std::string password) { User::password = password; }
 void User::setPermission(char permission) { User::permission = permission; }
+
+void User::doActivity() { return; }

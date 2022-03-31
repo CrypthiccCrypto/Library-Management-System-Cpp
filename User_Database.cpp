@@ -12,6 +12,8 @@ UserDatabase::UserDatabase(std::string fname) {
 	std::vector<std::string> row;
 	std::string line, word;
     std::fstream file (fname, std::ios::in);
+    curr_id = -1;
+    UserDatabase::fname = fname;
 
 	if(file.is_open())
 	{
@@ -23,6 +25,7 @@ UserDatabase::UserDatabase(std::string fname) {
 			while(getline(str, word, ','))
 				row.push_back(word);
 
+            curr_id = std::max(curr_id, std::stoi(row[0]));
             User tmp(std::stoi(row[0]), row[1], row[2], row[3][0]);
             UserDatabase::users.push_back(tmp);
 		}
@@ -32,6 +35,7 @@ UserDatabase::UserDatabase(std::string fname) {
         return;
     }
 
+    curr_id++;
     file.close();
 }
 
@@ -42,7 +46,8 @@ void UserDatabase::addUser(User user) {
             return;
         }
     }
-
+    
+    curr_id++;
     UserDatabase::users.push_back(user);
 }
 
@@ -64,7 +69,7 @@ void UserDatabase::searchUser(User user) {
             return;
         }
     }
-
+    
     std::cout << "User not found\n";
 }
 
@@ -76,4 +81,32 @@ User* UserDatabase::verify_login(std::string name, std::string password) {
     }
 
     return nullptr;
+}
+
+void UserDatabase::displayUsers() {
+    int counter = 1;
+    for(User &u : UserDatabase::users) {
+        std::cout << counter << ". ID: " << u.getID() << " Name: " << u.getName() << " Permission: " << u.getPermission() << std::endl;
+        counter++;
+    }
+}
+
+void UserDatabase::updateDatabase() {
+    std::ofstream outfile;
+    outfile.open("tmp.dat", std::ios::trunc);
+
+    for(User &u : UserDatabase::users) {
+        int id = u.getID();
+        std::string name = u.getName();
+        std::string password = u.getPassword();
+        char permission = u.getPermission();
+        outfile << u.getID() << "," << u.getName() << "," << u.getPassword() << "," << u.getPermission() << '\n';
+    }
+
+    outfile.close();
+
+    remove(fname.c_str());
+    int result = rename("tmp.dat", fname.c_str());
+    if ( result != 0 )
+        std::cout << "Error, could not update database.\n" << std::endl;
 }
