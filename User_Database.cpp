@@ -49,11 +49,12 @@ void UserDatabase::addUser(User user) {
     
     curr_id++;
     UserDatabase::users.push_back(user);
+    std::cout << "User successfully added with ID: " << user.getID() << "\n";
 }
 
-void UserDatabase::deleteUser(User user) {
+void UserDatabase::deleteUser(int id) {
     for(auto it = UserDatabase::users.begin(); it != UserDatabase::users.end(); it++) {
-        if(it->getID() == user.getID()) {
+        if(it->getID() == id) {
             UserDatabase::users.erase(it);
             return;
         }
@@ -84,10 +85,11 @@ User* UserDatabase::verify_login(std::string name, std::string password) {
 }
 
 void UserDatabase::displayUsers() {
-    int counter = 1;
     for(User &u : UserDatabase::users) {
-        std::cout << counter << ". ID: " << u.getID() << " Name: " << u.getName() << " Permission: " << u.getPermission() << std::endl;
-        counter++;
+        std::cout << "ID: " << u.getID() << "\n";
+        std::cout << "Name: " << u.getName() << "\n";
+        std::cout << "Permission: " << u.getPermission() << "\n";
+        std::cout << "---------------------------------\n";
     }
 }
 
@@ -95,11 +97,7 @@ void UserDatabase::updateDatabase() {
     std::ofstream outfile;
     outfile.open("tmp.dat", std::ios::trunc);
 
-    for(User &u : UserDatabase::users) {
-        int id = u.getID();
-        std::string name = u.getName();
-        std::string password = u.getPassword();
-        char permission = u.getPermission();
+    for(User &u : UserDatabase::users) { 
         outfile << u.getID() << "," << u.getName() << "," << u.getPassword() << "," << u.getPermission() << '\n';
     }
 

@@ -11,10 +11,14 @@
 #include "Librarian.h"
 
 using namespace std;
+
 const short IN_BACK = 8;
 const short IN_RET = 13;
 const string USER_DATABASE = "User_db.dat";
-UserDatabase udb("User_db.dat");
+const string BOOK_DATABASE = "Book_db.dat";
+
+UserDatabase udb(USER_DATABASE);
+BookDatabase bdb(BOOK_DATABASE);
 User* cur;
 
 std::string passwordInput(char sp = '*')
@@ -65,7 +69,7 @@ int main() {
     free(cur);
     
     if(p == 'A') {
-        Librarian lb(cur -> getID(), cur -> getName(), cur -> getPassword(), cur -> getPermission(), &udb);
+        Librarian lb(cur -> getID(), cur -> getName(), cur -> getPassword(), cur -> getPermission(), &udb, &bdb);
         cur = &lb;
         cur -> doActivity();
     }
