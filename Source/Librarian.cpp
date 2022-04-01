@@ -4,11 +4,11 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-#include "Book.h"
-#include "Book_Database.h"
-#include "User.h"
-#include "User_Database.h"
-#include "Librarian.h"
+#include "../Header/Book.h"
+#include "../Header/Book_Database.h"
+#include "../Header/User.h"
+#include "../Header/User_Database.h"
+#include "../Header/Librarian.h"
 
 enum LIB_CODES{
     ISSUE_BOOK=1,
@@ -51,7 +51,7 @@ void Librarian::doActivity() {
             getline(std::cin, ISBN);
             getline(std::cin, publication);
 
-            Book tmp(title, author, ISBN, publication, -1);
+            Book tmp(title, author, ISBN, publication, -1, -1);
             bdb -> addBook(tmp);
         }
         else if(ch == LIST_ALL_BOOK) {

@@ -5,19 +5,19 @@
 #include <fstream>
 #include <sstream>
 #include <ctime>
-#include "Book.h"
-#include "Book_Database.h"
-#include "User.h"
-#include "User_Database.h"
-#include "Librarian.h"
-#include "Student.h"
+#include "../Header/Book.h"
+#include "../Header/Book_Database.h"
+#include "../Header/User.h"
+#include "../Header/User_Database.h"
+#include "../Header/Librarian.h"
+#include "../Header/Student.h"
 
 using namespace std;
 
 const short IN_BACK = 8;
 const short IN_RET = 13;
-const string USER_DATABASE = "User_db.dat";
-const string BOOK_DATABASE = "Book_db.dat";
+const string USER_DATABASE = "../Database/User_db.dat";
+const string BOOK_DATABASE = "../Database/Book_db.dat";
 const std::vector<std::string> empt;
 
 UserDatabase udb(USER_DATABASE);

@@ -1,5 +1,6 @@
 #pragma once
 #include "User.h"
+#include "Book.h"
 #include <vector>
 
 class UserDatabase {

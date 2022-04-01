@@ -3,10 +3,10 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-#include "Book.h"
-#include "Book_Database.h"
-#include "User.h"
-#include "User_Database.h"
+#include "../Header/Book.h"
+#include "../Header/Book_Database.h"
+#include "../Header/User.h"
+#include "../Header/User_Database.h"
 
 UserDatabase::UserDatabase(std::string fname) {
 	std::vector<std::string> row;

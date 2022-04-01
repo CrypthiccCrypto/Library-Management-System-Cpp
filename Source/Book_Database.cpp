@@ -4,8 +4,8 @@
 #include <fstream>
 #include <ctime>
 #include <sstream>
-#include "Book.h"
-#include "Book_Database.h"
+#include "../Header/Book.h"
+#include "../Header/Book_Database.h"
 
 BookDatabase::BookDatabase(std::string fname) {
 	std::vector<std::string> row;
@@ -22,8 +22,10 @@ BookDatabase::BookDatabase(std::string fname) {
  
 			while(getline(str, word, ','))
 				row.push_back(word);
-
-			Book tmp(row[0], row[1], row[2], row[3], stoi(row[4]));
+            
+            int to = -1;
+            if(stoi(row[4]) != -1) { to = stoi(row[5]); }
+			Book tmp(row[0], row[1], row[2], row[3], stoi(row[4]), to);
             BookDatabase::books.push_back(tmp);
 		}
 	}
@@ -79,7 +81,7 @@ void BookDatabase::updateBookDatabase() {
     outfile.open("tmp.dat", std::ios::trunc);
 
     for(Book &b : BookDatabase::books) {
-        outfile << b.getTitle() << "," << b.getAuthor() << "," << b.getISBN() << "," << b.getPublication() << "," << b.getIssueDate() << '\n';
+        outfile << b.getTitle() << "," << b.getAuthor() << "," << b.getISBN() << "," << b.getPublication() << "," << b.getIssueDate() << "," << b.getIssuedTo() << '\n';
     }
 
     outfile.close();
