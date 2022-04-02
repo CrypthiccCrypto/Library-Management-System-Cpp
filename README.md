@@ -1,6 +1,11 @@
 # Library-Management-System-Cpp
 A library management system coded in Cpp - CS253 Assignment 1
 
+To run the program, execute **Main.cpp** in the *Source* folder.
+The compilation comman to create the executable is as follows:
+
+**g++ Book.cpp Book_Database.cpp User.cpp User_Database.cpp Librarian.cpp Student.cpp Professor.cpp Main.cpp -o Main**
+
 User Database only contains an admin with the following details:<br>
 
 Username: **Admin**<br>
