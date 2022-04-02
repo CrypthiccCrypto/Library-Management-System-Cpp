@@ -58,7 +58,7 @@ void UserDatabase::addUser(User user) {
 
 void UserDatabase::deleteUser(int id) {
     for(auto it = UserDatabase::users.begin(); it != UserDatabase::users.end(); it++) {
-        if(it->getID() == id) {
+        if(it->getID() == id) { 
             UserDatabase::users.erase(it);
             return;
         }
@@ -70,7 +70,6 @@ void UserDatabase::deleteUser(int id) {
 User* UserDatabase::searchUser(int id) {
     for(User &u : UserDatabase::users) {
         if(u.getID() == id) {
-            std::cout << "Username: " << u.getName() << "\n";
             return &u;
         }
     }

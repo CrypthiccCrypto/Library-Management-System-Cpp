@@ -14,6 +14,9 @@ class BookDatabase {
     void updateBook(Book book);
     void deleteBook(std::string ISBN);
     Book* searchBook(std::string ISBN, bool listing);
+    void checkAvailable(std::string name);
+
     void displayBooks();
+    void displayIssuedBooks();
     void updateBookDatabase();
 };

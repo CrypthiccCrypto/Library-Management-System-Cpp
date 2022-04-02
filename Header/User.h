@@ -9,8 +9,8 @@ class User {
     std::string USER_MENU;
     std::vector<std::string> isbns;
     int max_books;
+    int fine_rate;
     int ID;
-    int lim, fine_rate;
     char permission;
 
     public:
@@ -29,8 +29,9 @@ class User {
     void setISBNS(std::vector<std::string>* isbns);
     
     void issueBook(int max_books, Book* book);
+    void removeBook(Book* book);
     void returnBook(Book* book);
-    int calculateFees(int lim, int fine, int ret_date);
+    int calculateFees(int due_date);
 
     virtual void doActivity();
 };

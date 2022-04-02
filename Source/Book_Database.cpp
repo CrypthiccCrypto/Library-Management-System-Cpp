@@ -72,8 +72,26 @@ Book* BookDatabase::searchBook(std::string ISBN, bool listing) {
     return nullptr;
 }
 
+void BookDatabase::checkAvailable(std::string name) {
+    for(Book &b : BookDatabase::books) {
+        if(b.getTitle() == name && b.getDueDate() == -1) {
+            std::cout << "Book available! ISBN of book is: " << b.getISBN() << std::endl;
+            return;
+        }
+    }
+    std::cout << "Sorry, the book is not available." << std::endl;
+}
+
 void BookDatabase::displayBooks() {
     for(Book b : BookDatabase::books) { b.displayBook(); }
+}
+
+void BookDatabase::displayIssuedBooks() {
+    for(Book b : BookDatabase::books) {
+        if(b.getDueDate() != -1) {
+            b.displayBook();
+        }
+    }
 }
 
 void BookDatabase::updateBookDatabase() {
@@ -81,7 +99,7 @@ void BookDatabase::updateBookDatabase() {
     outfile.open("tmp.dat", std::ios::trunc);
 
     for(Book &b : BookDatabase::books) {
-        outfile << b.getTitle() << "," << b.getAuthor() << "," << b.getISBN() << "," << b.getPublication() << "," << b.getIssueDate() << "," << b.getIssuedTo() << '\n';
+        outfile << b.getTitle() << "," << b.getAuthor() << "," << b.getISBN() << "," << b.getPublication() << "," << b.getDueDate() << "," << b.getIssuedTo() << '\n';
     }
 
     outfile.close();
