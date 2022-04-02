@@ -65,26 +65,15 @@ void User::removeBook(Book *book) {
 void User::returnBook(Book *book) {
     if(book->getDueDate() == -1 || book->getIssuedTo() != this->ID) {
         std::cout << "Book is not issued to you." << std::endl;
-        return;
     }
     else {
         this -> removeBook(book);
         book -> setDueDate(-1);
         book -> setIssueTo(-1);
-        //std::cout << "The fine to be paid is: " << this->calculateFees(book->getDueDate()) << "\n" << std::endl;
         std::cout << "Book returned successfully" << std::endl;
     }
-    //std::cout << "---------------------------------\n";
-}
 
-int User::calculateFees(int due_date) {
-    int days = (time(0) - due_date)/(24*60*60);
-    int fine = 0;
-    if(days > 0) {
-        fine = days * (this -> fine_rate);
-    }
-    
-    return fine;
+    std::cout << "---------------------------------\n";
 }
 
 void User::doActivity() { return; }

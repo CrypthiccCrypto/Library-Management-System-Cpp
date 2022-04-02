@@ -44,7 +44,7 @@ void Librarian::doActivity() {
 
         std::cout << "---------------------------------\n";
         if(ch == ADD_BOOK) {
-            std:: cout << "Enter title, author, ISBN, and publication of the book respectively\n";
+            std:: cout << "Enter title, author, ISBN, and publication of the book, in separate lines, respectively\n";
             std::string title;
             std::string author;
             std::string ISBN;
@@ -81,7 +81,7 @@ void Librarian::doActivity() {
             bdb -> deleteBook(ISBN);
         }
         else if(ch == ADD_USER) {
-            std::cout << "Enter name, password and permission of the user respectively\n";
+            std::cout << "Enter name, password and permission of the user, in separate lines, respectively\n";
             std::string name;
             std::string password;
             char permission;
@@ -128,7 +128,7 @@ void Librarian::doActivity() {
             else {
                 User* tmp = udb -> searchUser(id);
                 if(tmp != nullptr) {
-                    std::cout << "Enter name, password and permission of the user respectively\n";
+                    std::cout << "Enter name, password and permission of the user, in separate lines, respectively\n";
                     std::string name;
                     std::string password;
                     char permission;
@@ -177,7 +177,7 @@ void Librarian::doActivity() {
             getline(std::cin, ISBN);
             Book* tmp = bdb -> searchBook(ISBN, false);
             if(tmp != nullptr) {
-                std::cout << "Enter title, author and publication of the book respectively\n";
+                std::cout << "Enter title, author and publication of the book, in separate lines, respectively\n";
                 std::string title;
                 std::string author;
                 std::string publication;

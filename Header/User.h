@@ -31,7 +31,6 @@ class User {
     void issueBook(int max_books, Book* book);
     void removeBook(Book* book);
     void returnBook(Book* book);
-    int calculateFees(int due_date);
 
     virtual void doActivity();
 };
