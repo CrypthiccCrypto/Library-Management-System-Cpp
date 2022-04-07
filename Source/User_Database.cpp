@@ -35,7 +35,7 @@ UserDatabase::UserDatabase(std::string fname) {
 		}
 	}
 	else {
-		std::cout << "Could not open the file\n";
+		std::cout << "Could not open the file.\n";
         return;
     }
 
@@ -46,7 +46,7 @@ UserDatabase::UserDatabase(std::string fname) {
 void UserDatabase::addUser(User user) {
     for(User &u : UserDatabase::users) {
         if(u.getName() == user.getName()) {
-            std::cout << "Username already in use\n";
+            std::cout << "Username already in use.\n";
             return;
         }
     }
@@ -64,7 +64,7 @@ void UserDatabase::deleteUser(int id) {
         }
     }   
 
-    std::cout << "User does not exist\n";
+    std::cout << "User does not exist.\n";
 }
 
 User* UserDatabase::searchUser(int id) {
@@ -74,7 +74,7 @@ User* UserDatabase::searchUser(int id) {
         }
     }
     
-    std::cout << "User not found\n";
+    std::cout << "User not found.\n";
     return nullptr;
 }
 

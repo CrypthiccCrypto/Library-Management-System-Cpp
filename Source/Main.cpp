@@ -53,7 +53,6 @@ bool login() {
     cout << "Enter username\n";
     string username;
     getline(std::cin, username);
-    getline(std::cin, username);
 
     cout << "Enter password\n";
     string password = passwordInput();
@@ -73,7 +72,15 @@ int main() {
         std::cout << "What would you like to do?\n1.Login\n2.Logout\n";
         std::cout << "---------------------------------\n";
 
-        std::cin >> ch;
+        int ch;
+        std::string input;
+        getline(std::cin, input);
+        try { ch = stoi(input); }
+        catch(...) {
+            std::cout << "Invalid input.\n";
+            ch = -1;
+        }
+
         if(ch == 1) {
             while(!login());
 
@@ -101,7 +108,10 @@ int main() {
                 cout << "Underfined permission" << endl;
             }
         }
-    } while(ch != 2);
+        else if(ch == 2) {
+            break;
+        }
+    } while(true);
 
     udb.updateDatabase();
     bdb.updateBookDatabase();

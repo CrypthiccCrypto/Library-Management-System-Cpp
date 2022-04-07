@@ -50,7 +50,6 @@ void User::issueBook(int max_books, Book *book) {
 
         std::cout << "Book issued successfully" << std::endl;
     }
-    std::cout << "---------------------------------\n";
 }
 
 void User::removeBook(Book *book) {
@@ -72,8 +71,6 @@ void User::returnBook(Book *book) {
         book -> setIssueTo(-1);
         std::cout << "Book returned successfully" << std::endl;
     }
-
-    std::cout << "---------------------------------\n";
 }
 
 void User::doActivity() { return; }

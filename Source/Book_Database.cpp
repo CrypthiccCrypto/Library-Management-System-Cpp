@@ -40,12 +40,13 @@ BookDatabase::BookDatabase(std::string fname) {
 void BookDatabase::addBook(Book book) {
     for(Book b : BookDatabase::books) {
         if(b.getISBN() == book.getISBN()) {
-            std::cout << "Book already exists\n";
+            std::cout << "Book already exists.\n";
             return;
         }
     }
 
     BookDatabase::books.push_back(book);
+    std::cout << "Book added successfully.\n";
 }
 
 void BookDatabase::deleteBook(std::string ISBN) {
@@ -63,7 +64,7 @@ void BookDatabase::deleteBook(std::string ISBN) {
 Book* BookDatabase::searchBook(std::string ISBN, bool listing) {
     for(Book &b : BookDatabase::books) {
         if(b.getISBN() == ISBN) {
-            if(listing) std::cout << "Book found\n";
+            if(listing) std::cout << "Book found.\n";
             return &b;
         }
     }

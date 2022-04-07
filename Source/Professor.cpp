@@ -56,7 +56,6 @@ void Professor::Clear_fine_amount(int payment) {
     else {
         std::cout << "A payment of " << payment << " has been made.\n";
         Fine_amount -= payment;
-        std::cout << "Current outstanding amount is " << Fine_amount <<"\n";
     }
 }
 
@@ -64,16 +63,24 @@ void Professor::doActivity() {
     int ch = 0;
     do
     {
+        std::cout << "---------------------------------\n";
         std::cout << USER_MENU;
         std::cout << "---------------------------------\n";
 
-        std::cin >> ch;
+        int ch;
+        std::string input;
+        getline(std::cin, input);
+        try { ch = stoi(input); }
+        catch(...) {
+            std::cout << "Invalid input.\n";
+            ch = -1;
+        }
 
         std::cout << "---------------------------------\n";
         if(ch == ISSUE_BOOK) {
             std::cout << "Enter the ISBN of the book you want to issue\n";
             std::string isbn;
-            std::cin >> isbn;
+            getline(std::cin, isbn);
             Book* tmp = bdb -> searchBook(isbn, false);
             if(tmp == nullptr) {
                 std::cout << "Book not found\n";
@@ -92,13 +99,11 @@ void Professor::doActivity() {
             std::cout << "Enter the title of the book you want to search\n";
             std::string title;
             getline(std::cin, title);
-            getline(std::cin, title);
             bdb -> checkAvailable(title);
         }
         else if(ch == RETURN_BOOK) {
             std::cout << "Enter the ISBN of the book you want to return\n";
             std::string isbn;
-            getline(std::cin, isbn);
             getline(std::cin, isbn);
             Book* tmp = bdb -> searchBook(isbn, false);
             if(tmp == nullptr) {
@@ -123,6 +128,6 @@ void Professor::doActivity() {
 
             std::cout << "Your current outstanding amount is :" << this -> Fine_amount << std::endl;
         }
-    } while (ch != LOGOUT);
-    std::cout << "---------------------------------\n";
+        else if(ch == LOGOUT) { break; }
+    } while (true);
 }
