@@ -1,7 +1,9 @@
 # Library-Management-System-Cpp
 A library management system coded in Cpp - CS253 Assignment 1
 
-To run the program, execute **Main.cpp** in the *Source* folder.
+GitHub link for the repo is: **https://github.com/CrypthiccCrypto/Library-Management-System-Cpp**<br>
+Please download the code and follow the instructions.<br>
+To run the program, execute **Main.cpp** in the *Source* folder.<br>
 The compilation command to create the executable is as follows:
 
 **g++ Book.cpp Book_Database.cpp User.cpp User_Database.cpp Librarian.cpp Student.cpp Professor.cpp Main.cpp -o Main**
