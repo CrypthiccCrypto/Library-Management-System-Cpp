@@ -52,7 +52,8 @@ std::string passwordInput(char sp = '*')
 bool login() {
     cout << "Enter username\n";
     string username;
-    cin >> username;
+    getline(std::cin, username);
+    getline(std::cin, username);
 
     cout << "Enter password\n";
     string password = passwordInput();

@@ -91,21 +91,26 @@ void Professor::doActivity() {
         else if(ch == SEARCH_BOOK) {
             std::cout << "Enter the title of the book you want to search\n";
             std::string title;
-            std::cin >> title;
+            getline(std::cin, title);
+            getline(std::cin, title);
             bdb -> checkAvailable(title);
         }
         else if(ch == RETURN_BOOK) {
             std::cout << "Enter the ISBN of the book you want to return\n";
             std::string isbn;
-            std::cin >> isbn;
+            getline(std::cin, isbn);
+            getline(std::cin, isbn);
             Book* tmp = bdb -> searchBook(isbn, false);
             if(tmp == nullptr) {
                 std::cout << "Book not found\n";
             }
-            else {
+            else if(tmp -> getIssuedTo() == this -> getID()) {
                 int due_date = tmp->getDueDate();
                 this->returnBook(tmp);
                 this->Clear_fine_amount(this->Calculate_fine(due_date));
+            }
+            else {
+                std::cout << "The book is not issued to you\n";
             }
         }
         else if(ch == CHECK_AMOUNT_DUE) {

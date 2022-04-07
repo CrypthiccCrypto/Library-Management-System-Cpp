@@ -105,10 +105,13 @@ void Student::doActivity() {
             if(tmp == nullptr) {
                 std::cout << "Book not found\n";
             }
-            else {
-                int due_date = tmp -> getDueDate();
+            else if(tmp -> getIssuedTo() == this -> getID()) {
+                int due_date = tmp->getDueDate();
                 this->returnBook(tmp);
                 this->Clear_fine_amount(this->Calculate_fine(due_date));
+            }
+            else {
+                std::cout << "The book is not issued to you\n";
             }
         }
         else if(ch == CHECK_AMOUNT_DUE) {
