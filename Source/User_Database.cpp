@@ -7,6 +7,7 @@
 #include "../Header/Book_Database.h"
 #include "../Header/User.h"
 #include "../Header/User_Database.h"
+#include "../Header/Student.h"
 
 UserDatabase::UserDatabase(std::string fname) {
 	std::vector<std::string> row;
@@ -66,15 +67,16 @@ void UserDatabase::deleteUser(int id) {
     std::cout << "User does not exist\n";
 }
 
-void UserDatabase::searchUser(User user) {
+User* UserDatabase::searchUser(int id) {
     for(User &u : UserDatabase::users) {
-        if(u.getID() == user.getID()) {
+        if(u.getID() == id) {
             std::cout << "Username: " << u.getName() << "\n";
-            return;
+            return &u;
         }
     }
     
     std::cout << "User not found\n";
+    return nullptr;
 }
 
 User* UserDatabase::verify_login(std::string name, std::string password) {
@@ -102,7 +104,7 @@ void UserDatabase::updateDatabase() {
 
     for(User &u : UserDatabase::users) { 
         outfile << u.getID() << "," << u.getName() << "," << u.getPassword() << "," << u.getPermission();
-        for(std::string isbn : u.getISBNS()) {
+        for(std::string isbn : *(u.getISBNS())) {
             outfile << "," << isbn;
         }
         outfile << '\n';

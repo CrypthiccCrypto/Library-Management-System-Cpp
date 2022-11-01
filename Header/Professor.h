@@ -3,12 +3,12 @@
 #include "Book.h"
 #include "Book_Database.h"
 
-class Student : public User {
+class Professor : public User {
     private:
     BookDatabase *bdb;
 
     public:
-    Student(int ID, std::string name, std::string password, char permission, std::vector<std::string> isbns, BookDatabase *bdb);
+    Professor(int ID, std::string name, std::string password, char permission, std::vector<std::string> isbns, BookDatabase *bdb);
     void displayIssuedBooks();
     void doActivity();
 };

@@ -15,7 +15,7 @@ class UserDatabase {
     void addUser(User user);
     void updateUser(User user);
     void deleteUser(int id);
-    void searchUser(User user);
+    User* searchUser(int id);
     void displayUsers();
 
     void updateDatabase();

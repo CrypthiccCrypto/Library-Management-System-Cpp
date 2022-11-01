@@ -27,6 +27,8 @@ Librarian::Librarian(int ID, std::string name, std::string password, char permis
     Librarian::udb = udb;
     Librarian::bdb = bdb;
     max_books = 0;
+    fine_rate = 0;
+    lim = 0;
     USER_MENU = 
     "What would you like to do?\n1. Issue a book\n2. Add a new book\n3. Delete a book\n4. List all books\n5. List issuable books\n6. Add a new user\n7. Update a user\n8. Delete user\n9. Display all users\n10. Logout\n";
 }
@@ -36,6 +38,7 @@ void Librarian::doActivity() {
     do
     {
         std::cout << USER_MENU;
+        std::cout << "---------------------------------\n";
 
         std::cin >> ch;
         if(ch == ADD_BOOK) {
@@ -55,7 +58,6 @@ void Librarian::doActivity() {
             bdb -> addBook(tmp);
         }
         else if(ch == LIST_ALL_BOOK) {
-            std::cout << "---------------------------------\n";
             bdb -> displayBooks();
         }
         else if(ch == DELETE_BOOK) {
@@ -94,12 +96,8 @@ void Librarian::doActivity() {
             }
         }
         else if(ch == DISPLAY_USER) {
-            std::cout << "---------------------------------\n";
             udb -> displayUsers();
         }
-        else if(ch == LOGOUT) {
-            bdb -> updateBookDatabase();
-            udb -> updateDatabase();
-        }
     } while (ch != LOGOUT);
+    std::cout << "---------------------------------\n";
 }

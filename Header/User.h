@@ -10,6 +10,7 @@ class User {
     std::vector<std::string> isbns;
     int max_books;
     int ID;
+    int lim, fine_rate;
     char permission;
 
     public:
@@ -19,13 +20,17 @@ class User {
     int getID();
     std::string getPassword();
     char getPermission();
-    std::vector<std::string> getISBNS();
+    std::vector<std::string>* getISBNS();
 
     void setName(std::string name);
     void setID(int ID);
     void setPassword(std::string password);
     void setPermission(char permission);
-    // void issueBook(int max_books, Book* book);
+    void setISBNS(std::vector<std::string>* isbns);
+    
+    void issueBook(int max_books, Book* book);
+    void returnBook(Book* book);
+    int calculateFees(int lim, int fine, int ret_date);
 
     virtual void doActivity();
 };

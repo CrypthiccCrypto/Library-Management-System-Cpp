@@ -11,6 +11,7 @@
 #include "../Header/User_Database.h"
 #include "../Header/Librarian.h"
 #include "../Header/Student.h"
+#include "../Header/Professor.h"
 
 using namespace std;
 
@@ -65,25 +66,43 @@ bool login() {
 }
 
 int main() {
-    while(!login());
+    int ch = 0;
+    do {
+        std::cout << "Welcome to the Library Management System!\n";
+        std::cout << "What would you like to do?\n1.Login\n2.Logout\n";
+        std::cout << "---------------------------------\n";
 
-    cout << "Welcome " << cur -> getName() << ".\n";
-    char p = cur -> getPermission();
-    
-    if(p == 'A') {
-        Librarian lb(cur -> getID(), cur -> getName(), cur -> getPassword(), cur -> getPermission(), empt, &udb, &bdb);
-        lb.doActivity();
-    }
-    else if(p == 'S') {
-        Student s(cur -> getID(), cur -> getName(), cur -> getPassword(), cur -> getPermission(), cur -> getISBNS(), &bdb);
-        s.displayIssuedBooks();
-    }
-    else if(p == 'P') {
-        cout << "mega" << endl;
-    }
-    else {
-        cout << "Underfined permission" << endl;
-    }
+        std::cin >> ch;
+        if(ch == 1) {
+            while(!login());
 
+            cout << "Welcome " << cur -> getName() << ".\n";
+            char p = cur -> getPermission();
+            
+            if(p == 'A') {
+                Librarian lb(cur -> getID(), cur -> getName(), cur -> getPassword(), cur -> getPermission(), empt, &udb, &bdb);
+                lb.setISBNS(cur -> getISBNS());
+                lb.doActivity();
+            }
+            else if(p == 'S') {
+                Student s(cur -> getID(), cur -> getName(), cur -> getPassword(), cur -> getPermission(), empt, &bdb);
+                s.setISBNS(cur -> getISBNS());
+                s.doActivity();
+                cur -> setISBNS(s.getISBNS());
+            }
+            else if(p == 'P') {
+                Professor p(cur -> getID(), cur -> getName(), cur -> getPassword(), cur -> getPermission(), empt, &bdb);
+                p.setISBNS(cur -> getISBNS());
+                p.doActivity();
+                cur -> setISBNS(p.getISBNS());
+            }
+            else {
+                cout << "Underfined permission" << endl;
+            }
+        }
+    } while(ch != 2);
+
+    udb.updateDatabase();
+    bdb.updateBookDatabase();
     return 0;
 }
